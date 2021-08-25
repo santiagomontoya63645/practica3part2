@@ -296,5 +296,5 @@ void Admin::aumentardinero(string usuario){//solo el admin puede aumentar el din
     convertircadena(entero,contenido);
     siste_binario(binario,entero);
     metodo2(binario,4,usuario);
-    remove("usando");//como aca se realizaron cambios y despues se codifico eliminamos este achivo
+    remove("../practica3parte2/BD/usando");//como aca se realizaron cambios y despues se codifico eliminamos este achivo
 }

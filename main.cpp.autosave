@@ -25,6 +25,7 @@ int main()
                       admin.deco_metodo2(4,a);
                       clavedecod=admin.recogerunalinea(0,"../practica3parte2/BD/usando");
                       claveverif=admin.verificador(clave,clavedecod);
+                      remove("../practica3parte2/BD/usando");
                       if(claveverif==false){//cave d eadministrador que ingreso esta incorrecta
                           cout<<"clave incorrecta"<<endl;
                       }

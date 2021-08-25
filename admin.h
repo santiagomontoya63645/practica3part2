@@ -16,6 +16,10 @@ public:
     void deco_metodo2(int semilla,string nombre_de_entrada);
     string recogerunalinea(int linea, string a);
     bool verificador(string clave,string clavedecod);
+    void crearusuario();
+    void modificardinero(string descision);
+    void retirardinero(string usuario);
+    void aumentardinero(string usuario);
 };
 
 #endif // ADMIN_H
