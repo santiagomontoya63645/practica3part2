@@ -5,7 +5,9 @@ CONFIG -= qt
 
 SOURCES += \
         admin.cpp \
-        main.cpp
+        main.cpp \
+        usuario.cpp
 
 HEADERS += \
-    admin.h
+    admin.h \
+    usuario.h

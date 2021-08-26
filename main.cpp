@@ -1,10 +1,12 @@
 #include <iostream>
 #include "admin.h"
+#include "usuario.h"
 using namespace std;
 
 int main()
 {
     Admin admin;
+    usuario Usuario;
     string clave;
     string a,clavedecod,salida;
     int opcion=0,opcion2=0,opcion3=0;
@@ -25,6 +27,7 @@ int main()
                       admin.deco_metodo2(4,a);
                       clavedecod=admin.recogerunalinea(0,"../practica3parte2/BD/usando");
                       claveverif=admin.verificador(clave,clavedecod);
+                      remove("../practica3parte2/BD/usando");
                       if(claveverif==false){//cave d eadministrador que ingreso esta incorrecta
                           cout<<"clave incorrecta"<<endl;
                       }
@@ -46,8 +49,35 @@ int main()
                           }
 
                       }
+                      opcion=0;
+
+                      claveverif=false;//poner despues de esto si se desea sali del sistema
+
               }
           }
+              else{
+
+                  usuario=Usuario.ingresarcomousuario(a);//poner los cassos de mirar saldo o retirar saldoo errar seccion
+                  opcion3=0;
+                  if (usuario==true){
+                      while(opcion3!=3){
+                          cout<<"ingrese 1 si desea ver su saldo"<<endl<<"ingrese 2 si desea retirar dinero"<<endl<<"ingrese 3 para cerrar seccion"<<endl;
+                          cin>>opcion3;
+                          cout<<endl<<endl<<endl<<endl<<endl;
+                          switch (opcion3) {//aca el usuario escoge que desea hacer
+                            case 1:
+                              Usuario.versaldo(a);
+                              break;
+                            case 2:
+                              Usuario.retirardinero(a);
+                              break;
+
+                          }
+
+                      }
+                  }
+
+              }
         }
     }
     }

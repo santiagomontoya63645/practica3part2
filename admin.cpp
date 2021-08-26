@@ -101,10 +101,10 @@ void Admin:: metodo2(char *binario,int semilla,string nombre_de_salida){
     escribir.open(salida2);
     escribir<<codificado;
     escribir.close();
-    cout<<"archivo original:              ";for(int i=0;i<k;i++) cout<<*(binario+i);
-    cout<<endl;
-    cout<<"archivo binario codificado:    ";for(int i=0;i<k;i++) cout<<*(codificado+i);
-    cout<<endl;
+    //cout<<"archivo original:              ";for(int i=0;i<k;i++) cout<<*(binario+i);
+    //cout<<endl;
+    //cout<<"archivo binario codificado:    ";for(int i=0;i<k;i++) cout<<*(codificado+i);
+    //cout<<endl;
 
 }
 void Admin:: deco_metodo2(int semilla,string nombre_de_entrada){
@@ -226,51 +226,30 @@ void Admin::crearusuario(){
 void Admin::modificardinero(string descision){//aca se decide si se va a recargar o retirar
     // si el que ingresa esel administrador solamente es para aumentar su dinero
 
+    string prueba="../practica3parte2/BD/";
+
     if (descision=="admin"){// caso en que se va a recargar dinero
         cout<<"ingrese usuario que va a recargar"<<endl;cin>>descision;
-        //deco_metodo2(4,descision);
-        aumentardinero(descision);
+        string auxdescision=descision;
+
+        deco_metodo2(4,descision);
+        descision=prueba+descision;
+        ifstream leer;
+            leer.open(descision);
+            if(leer.is_open()){
+                leer.close();
+                descision=auxdescision;
+               aumentardinero(descision);
+            }
+            else{
+                cout<<"usuario no encontrado"<<endl;
+
+            }
 
     }
-    else{//caso en el que el usuario desee retirar el dinero
-
-        retirardinero(descision);
-    }
-
 }
-void Admin:: retirardinero(string usuario){
-    //recive el nombre del archivo del usuario que desee retirar el dinero
-    string lo_que_tiene,guardarpasword;
-    long int lo_que_desea_retirar;
-    deco_metodo2(4,usuario);
-    //decodificara os datos del usuario y los llevara al archivo usando
-    lo_que_tiene=recogerunalinea(2,"usando");// recogo la tercer linea del archivo usando que es donde estara el saldo del usuario que desee retirar dinero
-    cout<<endl<<endl<<"su saldo actual es :"<<lo_que_tiene<<endl;
-    long int x=stoi(lo_que_tiene,nullptr,10);//convierte el saldo que esta en string a int
-    cout<<"ingrese la cantidad que desea retirar"<<endl;cin>>lo_que_desea_retirar;
-    x=x-lo_que_desea_retirar-1000;
-    cout<<endl<<endl<<"retiro exitoso su nuevo saldo es:"<<x<<endl;
-    guardarpasword=recogerunalinea(0,"usando");// recoge la linea donde esta contraseña
-    ofstream escribir;
-    escribir.open("usando");// el resto de lafuncion lo que hace es guardar los cambios
-    // reescribo el archivo usando  con los cambios que se hicieron al usuario al retirar dinero
 
-    escribir<<guardarpasword;
-    escribir<<"\nsaldo:";
-    escribir<<"\n";
-    escribir<<x;
-    escribir.close();
-    char contenido[10000]={};
-    int entero[10000]={};
-    char binario[80000]={};
-    // encripto los cambios de usando y los guardo en el archivo del usuario que esta retirando dinero y borro el archivo usando
-    leer_archivo(contenido,"usando");
-    convertircadena(entero,contenido);
-    siste_binario(binario,entero);
-    metodo2(binario,4,usuario);
-    remove("usando");//como aca se realizaron cambios y despues se codifico eliminamos este achivo
 
-}
 void Admin::aumentardinero(string usuario){//solo el admin puede aumentar el dinero si el usuario quiere recargar que vaya alas oficinas de los admins
     // recive d eentrada el nombre del archivo del usuario que senecesita decodificar, aumentar sus aldo y despues codificar
     long int lo_que_desea_recargar;
@@ -296,5 +275,5 @@ void Admin::aumentardinero(string usuario){//solo el admin puede aumentar el din
     convertircadena(entero,contenido);
     siste_binario(binario,entero);
     metodo2(binario,4,usuario);
-    remove("usando");//como aca se realizaron cambios y despues se codifico eliminamos este achivo
+    remove("../practica3parte2/BD/usando");//como aca se realizaron cambios y despues se codifico eliminamos este achivo
 }
